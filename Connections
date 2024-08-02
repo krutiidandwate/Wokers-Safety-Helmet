@@ -1,0 +1,37 @@
+1. DHT11 Temperature and Humidity Sensor:
+   - Pin: `DHTPIN` (pin 6)
+   - Connections:
+     - VCC to 5V on Arduino
+     - GND to GND on Arduino
+     - Data pin to digital pin 6 on Arduino
+     - A pull-up resistor (usually 10k ohms) between the VCC and data pin
+
+2. Vibration Sensor:
+   - Pin: `VIBRATION_SENSOR_PIN` (pin 3)
+   - Connections:
+     - VCC to 5V on Arduino
+     - GND to GND on Arduino
+     - Signal pin to digital pin 3 on Arduino
+
+3. Buzzer:
+   - Pin: `BUZZER_PIN` (pin 4)
+   - Connections:
+     - Positive lead to digital pin 4 on Arduino
+     - Negative lead to GND on Arduino
+
+4. MQ-3 Alcohol Gas Sensor:
+   - Pin: `MQ3_SENSOR_PIN` (analog pin A0)
+   - Connections:
+     - VCC to 5V on Arduino
+     - GND to GND on Arduino
+     - Analog output pin to analog pin A0 on Arduino
+
+
+
+| Component                | Arduino Pin        | Connections                         |
+|--------------------------|--------------------|-------------------------------------|
+| DHT11 Sensor             | `DHTPIN` (6)       | VCC to 5V, GND to GND, Data to pin 6, 10k ohm resistor between VCC and Data |
+| Vibration Sensor         | `VIBRATION_SENSOR_PIN` (3) | VCC to 5V, GND to GND, Signal to pin 3 |
+| Buzzer                   | `BUZZER_PIN` (4)   | Positive to pin 4, Negative to GND  |
+| MQ-3 Gas Sensor          | `MQ3_SENSOR_PIN` (A0) | VCC to 5V, GND to GND, Analog output to pin A0 |
+
