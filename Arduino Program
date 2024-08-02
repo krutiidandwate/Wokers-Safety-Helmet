@@ -1,0 +1,70 @@
+#include <DHT.h>
+
+#define DHTPIN 6
+#define DHTTYPE DHT11
+
+#define VIBRATION_SENSOR_PIN 3
+#define BUZZER_PIN 4
+#define MQ3_SENSOR_PIN A0
+
+#define TEMPERATURE_THRESHOLD 30 // Set your temperature threshold
+#define HUMIDITY_THRESHOLD 70    // Set your humidity threshold
+#define VIBRATION_THRESHOLD 600  // Set your vibration threshold
+#define GAS_THRESHOLD 500        // Set your gas threshold
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  pinMode(VIBRATION_SENSOR_PIN, INPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+}
+
+void loop() {
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
+
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.print(" °C\t");
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.print(" %\t");
+
+  int vibrationValue = analogRead(VIBRATION_SENSOR_PIN);
+  Serial.print("Vibration: ");
+  Serial.print(vibrationValue);
+
+  int gasValue = analogRead(MQ3_SENSOR_PIN);
+  Serial.print(" Gas: ");
+  Serial.println(gasValue);
+
+  // Check temperature, humidity, vibration, and gas thresholds
+  if (temperature > TEMPERATURE_THRESHOLD) {
+    Serial.println("ALERT! Temperature too high!");
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(3000); // Turn on the buzzer
+  } else if (humidity > HUMIDITY_THRESHOLD) {
+    Serial.println("ALERT! Humidity threshold exceeded!");
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(3000); // Turn on the buzzer
+  } else if (vibrationValue > VIBRATION_THRESHOLD) {
+    Serial.println("ALERT! Vibrations detected!");
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(3000); // Turn on the buzzer
+  } else if (gasValue > GAS_THRESHOLD) {
+    Serial.println("ALERT! Gas threshold exceeded!");
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(3000); // Turn on the buzzer
+  } else {
+    digitalWrite(BUZZER_PIN, LOW); // Turn off the buzzer
+  }
+  
+  // Adjust delay as per requirement
+}
